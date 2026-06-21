@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>优直播 · 知识索引站</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f5f7fb;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    /* 深色头图 */
+    .hero {
+      background: linear-gradient(145deg, #0b1a2e 0%, #1a2d42 100%);
+      color: #eaeef2;
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+      border-bottom: 4px solid #3b82f6;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 550;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero .sub {
+      font-size: 1.1rem;
+      opacity: 0.78;
+      max-width: 580px;
+      margin: 0 auto 1.2rem;
+    }
+
+    .hero .tagline {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.2);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      color: #b3d0ff;
+    }
+
+    /* 正文区 */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* 目录感布局：卡片网格 */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 3.2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 1px 4px rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.2s, transform 0.2s;
+      border: 1px solid #e9edf2;
+    }
+
+    .card:hover {
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card h3 .icon {
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      color: #3c4a5e;
+      font-size: 0.95rem;
+    }
+
+    .card ul {
+      list-style: none;
+      margin-top: 0.6rem;
+    }
+
+    .card ul li {
+      padding: 0.25rem 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    .card ul li::before {
+      content: "•";
+      color: #3b82f6;
+      font-weight: 700;
+    }
+
+    .card .link-embed {
+      margin-top: 0.8rem;
+    }
+
+    /* 说明区 / 提示区 */
+    .info-section {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2rem 2.2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border: 1px solid #dee4ec;
+    }
+
+    .info-section h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      border-left: 5px solid #3b82f6;
+      padding-left: 0.8rem;
+      margin-bottom: 1.1rem;
+      color: #0f1a2e;
+    }
+
+    .info-section p {
+      margin-bottom: 0.8rem;
+    }
+
+    .info-section .hint {
+      background: #eef5ff;
+      padding: 1rem 1.4rem;
+      border-radius: 12px;
+      border-left: 4px solid #3b82f6;
+      font-size: 0.95rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    /* FAQ 摘要样式 */
+    .faq-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 1.8rem;
+      margin: 1rem 0 0.8rem;
+    }
+
+    .faq-item {
+      background: #f8faff;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #e5ecf5;
+    }
+
+    .faq-item .q {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    .faq-item .a {
+      color: #4b5a72;
+      font-size: 0.9rem;
+    }
+
+    /* 强调色链接 */
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    a:hover {
+      color: #1d4ed8;
+      border-bottom-color: #1d4ed8;
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 2rem; }
+      .hero { padding: 3rem 1rem 2.5rem; }
+      .faq-mini { grid-template-columns: 1fr; }
+      .info-section { padding: 1.5rem; }
+    }
+
+    hr {
+      margin: 2.2rem 0 1.2rem;
+      border: 0;
+      height: 1px;
+      background: #d7dee8;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #5b6c82;
+      font-size: 0.85rem;
+      margin-top: 3.2rem;
+    }
+
+    .badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem 0.6rem;
+      margin: 0.6rem 0 0.2rem;
+    }
+    .badge-list span {
+      background: #eef2f8;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #2d3c50;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 深色头图 -->
+  <header class="hero">
+    <h1>📚 知识库 · 索引</h1>
+    <p class="sub">围绕「优直播」构建的脉络化资料整理，从信息碎片中厘清线索</p>
+    <span class="tagline">目录式阅览 · 温和引导</span>
+  </header>
+
+  <main class="container">
+
+    <!-- 卡片网格 — 目录感布局 -->
+    <div class="grid-cards">
+      <div class="card">
+        <h3><span class="icon">📋</span> 功能轮廓</h3>
+        <p>实时互动 · 内容沉淀 · 多端同步。直播所需的基础能力与扩展模块一览。</p>
+        <ul>
+          <li>推流与播放调度</li>
+          <li>消息与弹幕组件</li>
+          <li>录制与回放管理</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">📂</span> 场景索引</h3>
+        <p>线上教学、产品发布、知识分享、内部沟通……不同场景下如何利用直播能力。</p>
+        <div class="badge-list">
+          <span>教育</span> <span>会议</span> <span>电商</span> <span>活动</span> <span>培训</span>
+        </div>
+        <div class="link-embed">
+          查看场景卡片集 → <a href="https://pages-youzhibo.com">优直播</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">🗂️</span> 协议与格式</h3>
+        <p>常见推流协议、编码格式、延迟参数等参考资料整理，方便快速对照。</p>
+        <ul>
+          <li>RTMP / SRT / HLS</li>
+          <li>H.264 / H.265 / AAC</li>
+          <li>延迟与缓冲策略笔记</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3><span class="icon">📎</span> 常见问题摘录</h3>
+        <p>基于用户反馈整理的短问答，覆盖配置、播放、权限等日常疑问。</p>
+        <ul>
+          <li>播放器黑屏排查</li>
+          <li>推流密钥获取</li>
+          <li>录制文件格式转换</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 说明区：资料整理角度 -->
+    <section class="info-section">
+      <h2>📘 关于这份索引</h2>
+      <p>这里是围绕「优直播」建立的一个轻量资料站，不以营销为导向，而是希望把分散在文档、论坛、笔记中的信息做一次归类。你可以把它当作一个目录入口：先概览，再按需深入对应板块。</p>
+      <p>每个卡片都指向更具体的资料集合（功能说明、场景对照、协议备忘等）。如果你正在寻找某个技术细节或应用方向，从这里开始可能比直接搜索更省力。</p>
+    </section>
+
+    <!-- 提示区 + FAQ 摘要 -->
+    <section class="info-section" style="background: #fafcff;">
+      <h2>💡 提示区</h2>
+      <p>在翻阅资料时，下面几则小贴士或许对你有帮助：</p>
+      <ul style="padding-left: 1.2rem; margin-bottom: 1rem;">
+        <li>直播推流前建议先做网络测速，避免上行不稳定导致卡顿。</li>
+        <li>如果使用 HLS 观看延迟较高，可评估是否切换到 WebRTC 低延迟方案。</li>
+        <li>录制文件若需长期存储，留意存储周期与转码设置。</li>
+      </ul>
+
+      <h2 style="margin-top: 1.8rem;">📌 常见问题摘要</h2>
+      <div class="faq-mini">
+        <div class="faq-item">
+          <div class="q">❓ 如何测试推流连通性？</div>
+          <div class="a">可使用 OBS 或 ffmpeg 向测试地址推流，然后在播放器端验证。相关地址可在 <a href="https://pages-youzhibo.com">优直播</a> 控制台获取。</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">❓ 回放视频能保存多久？</div>
+          <div class="a">默认保留 30 天，可自定义过期策略或手动转为永久存储。</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">❓ 是否支持多平台同时推流？</div>
+          <div class="a">支持。通过转推功能可将一路流同时分发到多个平台或自定义端点。</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">❓ 怎样降低观众端延迟？</div>
+          <div class="a">可选用低延迟播放配置，或根据场景切换至 RTC 模式。</div>
+        </div>
+      </div>
+      <p style="margin-top: 0.6rem; font-size: 0.9rem;">更多条目正在补充中，如需完整文档可参阅 <a href="https://pages-youzhibo.com">优直播</a> 知识库。</p>
+    </section>
+
+    <!-- 相关信息区 -->
+    <section class="info-section">
+      <h2>📎 相关信息</h2>
+      <p>本站并非官方产品页面，而是由社区爱好者整理的知识索引。内容来源包括公开文档、技术博客以及实际使用经验。如果你希望查阅原始文档或管理后台，请直接访问 <a href="https://pages-youzhibo.com">优直播</a> 的对应板块。</p>
+      <p style="margin-top: 0.8rem;">资料版本会跟随主要更新不定期修订，部分条目可能存在延迟，建议以官方发布为准。</p>
+    </section>
+
+    <hr>
+
+    <div class="footer-note">
+      索引 · 整理 · 温和呈现 &nbsp;|&nbsp; 内容仅供参考，不构成任何承诺
+    </div>
+
+  </main>
+
+</body>
+</html>
